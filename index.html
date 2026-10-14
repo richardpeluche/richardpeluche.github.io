@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RICCHARY Cotizaciones — Cotiza en segundos, cobra sin perseguir</title>
-<meta name="description" content="App de cotizaciones para talleres de bordado, textil y publicidad. Dicta el pedido, envía la proforma por WhatsApp, haz seguimiento y controla lo que te deben. Gratis en Google Play.">
-<meta property="og:title" content="RICCHARY Cotizaciones">
+<title>RICCHARY Sistema de Gestión Comercial — Cotiza en segundos, cobra sin perseguir</title>
+<meta name="description" content="RICCHARY, sistema de gestión comercial para talleres de bordado, textil y publicidad: cotiza, agenda entregas, haz seguimiento, controla cobros y factura al SRI. Gratis en Google Play.">
+<meta property="og:title" content="RICCHARY Sistema de Gestión Comercial">
 <meta property="og:description" content="Cotiza en segundos. Cobra sin perseguir. Descarga gratis en Google Play.">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#ffffff">
-<link rel="icon" href="icon-192.png">
+<meta name="theme-color" content="#0c0c0c">
+<link rel="icon" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -29,12 +29,15 @@ a{color:inherit}
 :focus-visible{outline:3px solid var(--brand);outline-offset:3px;border-radius:6px}
 
 /* NAV */
-.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.78);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(0,0,0,.08)}
+.nav{position:sticky;top:0;z-index:50;background:#0c0c0c;-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(255,255,255,.08);color:#f5f5f7}
 .nav-in{max-width:var(--max);margin:0 auto;padding:0 20px;height:52px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.brand{font-weight:700;font-size:17px;letter-spacing:-.01em;text-decoration:none;white-space:nowrap}
-.brand span{color:var(--ink2);font-weight:500}
-.nav-links{display:flex;gap:26px;font-size:13px;color:var(--ink2)}
-.nav-links a{text-decoration:none}.nav-links a:hover{color:var(--ink)}
+.brand{display:flex;align-items:center;gap:10px;font-size:17px;letter-spacing:-.01em;text-decoration:none;white-space:nowrap}
+.brand img{width:40px;height:auto}
+.brand b{font-weight:700;letter-spacing:.02em}
+.brand span{color:#a1a1a6;font-weight:500;font-size:14px}
+@media (max-width:760px){.brand span{display:none}}
+.nav-links{display:flex;gap:26px;font-size:13px;color:#a1a1a6}
+.nav-links a{text-decoration:none}.nav-links a:hover{color:#fff}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:inherit;font-weight:600;border:0;border-radius:980px;cursor:pointer;text-decoration:none;transition:background .2s,transform .2s}
 .btn-primary{background:var(--brand);color:#fff;padding:13px 26px;font-size:17px}
 .btn-primary:hover{background:var(--brand-d)}
@@ -64,7 +67,15 @@ section{position:relative}
 
 /* HERO */
 .hero{padding:clamp(48px,8vw,96px) 0 0;text-align:center;overflow:hidden;background:linear-gradient(#fff 60%,var(--bg2))}
-.hero .lead{max-width:640px;margin:22px auto 0}
+.hero .lead{max-width:680px;margin:22px auto 0}
+.opener{background:#0c0c0c;line-height:0}
+.opener[hidden]{display:none}
+.opener video{display:block;width:100%;max-width:960px;height:clamp(200px,36vw,400px);margin:0 auto;object-fit:contain;background:#0c0c0c}
+.slogan{font-size:clamp(17px,2.2vw,22px);font-weight:600;letter-spacing:-.01em;color:var(--brand);margin:0 0 14px}
+.showreel{padding:clamp(56px,9vw,110px) 0;background:var(--dark);color:#f5f5f7;text-align:center}
+.showreel .lead{color:#a1a1a6;margin:16px auto 0;max-width:620px}
+.reel-frame{width:min(420px,86vw);margin:44px auto 0;border-radius:32px;overflow:hidden;background:#000;box-shadow:0 30px 80px -20px rgba(0,0,0,.6);aspect-ratio:4/5}
+.reel-frame video{display:block;width:100%;height:100%;object-fit:cover;background:#000}
 .cta-row{display:flex;gap:26px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:34px}
 .hero-phones{display:flex;justify-content:center;align-items:flex-end;gap:clamp(12px,3vw,40px);margin-top:clamp(36px,5vw,56px);height:clamp(330px,50vw,600px);overflow:hidden}
 .hero-phones .phone{margin-bottom:-70px}
@@ -74,7 +85,7 @@ section{position:relative}
 
 /* una sola animacion de entrada (hero) */
 @media (prefers-reduced-motion:no-preference){
-  .hero .h-xl,.hero .lead,.hero .cta-row,.hero .mini{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+  .hero .slogan,.hero .h-xl,.hero .lead,.hero .cta-row,.hero .mini{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
   .hero .lead{animation-delay:.12s}.hero .cta-row{animation-delay:.24s}.hero .mini{animation-delay:.3s}
   .hero-phones{animation:rise 1.1s .35s cubic-bezier(.2,.7,.2,1) both}
 }
@@ -171,7 +182,7 @@ footer a{text-decoration:none}footer a:hover{text-decoration:underline}
 
 <header class="nav">
   <div class="nav-in">
-    <a class="brand" href="#top">RICCHARY <span>Cotizaciones</span></a>
+    <a class="brand" href="#top"><img src="logo-ricchary.png" alt="" width="40" height="32"><b>RICCHARY</b><span>Sistema de gestión comercial</span></a>
     <nav class="nav-links" aria-label="Principal">
       <a href="#funciones">Funciones</a>
       <a href="#cobro">Cobros</a>
@@ -184,11 +195,20 @@ footer a{text-decoration:none}footer a:hover{text-decoration:underline}
 
 <main id="top">
 
+<!-- APERTURA: logo animado (se muestra solo si el archivo carga) -->
+<section class="opener" id="opener" hidden>
+  <video id="logoAnim" muted playsinline preload="auto" aria-label="RICCHARY, sistema de gestión comercial">
+    <source src="logo-animado.webm" type="video/webm">
+    <source src="logo-animado.mp4" type="video/mp4">
+  </video>
+</section>
+
 <!-- HERO -->
 <section class="hero">
   <div class="wrap">
+    <p class="slogan">De un emprendedor que sabe lo que necesitas</p>
     <h1 class="h-xl">Cotiza en segundos.<br>Cobra sin perseguir.</h1>
-    <p class="lead">La app de cotizaciones para talleres de bordado, textil y publicidad. Dicta el pedido, envía la proforma por WhatsApp y controla lo que te deben.</p>
+    <p class="lead">RICCHARY es el sistema de gestión comercial para talleres de bordado, textil y publicidad. Cotiza, agenda entregas, haz seguimiento, controla tus cobros y factura al SRI, todo desde tu celular.</p>
     <div class="cta-row">
       <a class="btn btn-primary js-play" data-pos="hero" href="#descargar">
         <svg class="play-ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M4 2.6v18.8c0 .6.7 1 1.2.7L21 12.9c.5-.3.5-1.1 0-1.4L5.2 1.9C4.7 1.6 4 2 4 2.6z"/></svg>
@@ -202,6 +222,19 @@ footer a{text-decoration:none}footer a:hover{text-decoration:underline}
     <div class="phone side"><img src="img-hist.webp" alt="Historial de cotizaciones con estados" width="780" height="1688"></div>
     <div class="phone"><img src="img-form.webp" alt="Cotización con ítems, total y abono en la app" width="780" height="1688"></div>
     <div class="phone side"><img src="img-rep.webp" alt="Reporte de pedidos por cobrar" width="780" height="1688"></div>
+  </div>
+</section>
+
+<!-- VIDEO DE FUNCIONES (se muestra solo si el archivo existe) -->
+<section class="showreel" id="video" hidden>
+  <div class="wrap">
+    <h2 class="h-lg">Mira todo lo que hace,<br>en un minuto.</h2>
+    <p class="lead">Cotizar, agendar, seguir, cobrar y facturar. Así se ve RICCHARY en acción.</p>
+    <div class="reel-frame">
+      <video id="reelVideo" controls playsinline preload="metadata" poster="img-reel-poster.webp">
+        <source src="funciones.mp4" type="video/mp4">
+      </video>
+    </div>
   </div>
 </section>
 
@@ -344,7 +377,7 @@ footer a{text-decoration:none}footer a:hover{text-decoration:underline}
           <li>Todo lo del plan Gratis</li>
           <li>Activación directa por WhatsApp</li>
         </ul>
-        <a class="btn btn-light js-wa" data-pos="plan-pro" href="https://wa.me/593988928651?text=Hola%2C%20quiero%20activar%20RICCHARY%20Cotizaciones%20Pro" rel="noopener">Pedir Pro por WhatsApp</a>
+        <a class="btn btn-light js-wa" data-pos="plan-pro" href="https://wa.me/593988928651?text=Hola%2C%20quiero%20activar%20RICCHARY%20Pro" rel="noopener">Pedir Pro por WhatsApp</a>
       </div>
     </div>
   </div>
@@ -369,7 +402,7 @@ footer a{text-decoration:none}footer a:hover{text-decoration:underline}
 <section class="final" id="descargar">
   <div class="wrap">
     <h2 class="h-lg">Tu próxima cotización,<br>en menos de un minuto.</h2>
-    <p class="lead">Descarga RICCHARY Cotizaciones y pruébala hoy. Es gratis.</p>
+    <p class="lead">Descarga RICCHARY y pruébalo hoy. Es gratis.</p>
     <div class="cta-row">
       <a class="btn btn-light js-play" data-pos="final" id="playMain" href="https://play.google.com/store/apps/details?id=com.ricchary.cotizaciones" rel="noopener">
         <svg class="play-ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="#1565C0" d="M4 2.6v18.8c0 .6.7 1 1.2.7L21 12.9c.5-.3.5-1.1 0-1.4L5.2 1.9C4.7 1.6 4 2 4 2.6z"/></svg>
@@ -400,6 +433,17 @@ if(META_PIXEL_ID){
   fbq('init',META_PIXEL_ID); fbq('track','PageView');
 }
 function ev(name,pos){ try{ if(window.fbq) fbq('track',name,{content_name:pos}); }catch(e){} }
+
+/* Muestra el logo animado (una sola vez) y el video solo si los archivos existen */
+(function(){
+  var lv=document.getElementById('logoAnim'), op=document.getElementById('opener');
+  if(lv&&op){
+    lv.addEventListener('loadeddata',function(){ op.hidden=false; var p=lv.play(); if(p&&p.catch) p.catch(function(){}); });
+    lv.load();
+  }
+  var rv=document.getElementById('reelVideo'), sec=document.getElementById('video');
+  if(rv&&sec){ rv.addEventListener('loadedmetadata',function(){ sec.hidden=false; }); rv.load(); }
+})();
 
 /* Pasa los UTM del anuncio al enlace de Google Play (para saber de que anuncio vino cada instalacion) */
 (function(){
