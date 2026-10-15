@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://richardpeluche.github.io/sitemap.xml
