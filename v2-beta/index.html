@@ -4106,8 +4106,9 @@ window.addEventListener('load', async ()=>{
       var tbk=document.querySelector('.totals-block'); if(tbk) tbk.parentNode.insertBefore(rs, tbk.nextSibling);
     }
     var pcT=tVen? Math.round(tGan/tVen*100) : 0;
-    rs.innerHTML='Costo '+money(tCos)+' · Ganancia <b class="'+(tGan<0?'neg':'ok')+'">'+money(tGan)+'</b> ('+pcT+'% sobre lo vendido, sin IVA)'+
-      (sin? '<small>'+sin+' ítem'+(sin>1?'s':'')+' sin costo: no entran en el cálculo.</small>' : '')+
+    var aviso='<span style="display:block;margin-top:4px;color:#b45309;font-weight:600">Pon el precio de fábrica de tus productos en el catálogo y así sabrás tu costo y tu margen de ganancia.</span>';
+    rs.innerHTML=(tVen? 'Costo '+money(tCos)+' · Ganancia <b class="'+(tGan<0?'neg':'ok')+'">'+money(tGan)+'</b> ('+pcT+'% sobre lo vendido, sin IVA)' : '')+
+      (sin? aviso+'<small>'+sin+' ítem'+(sin>1?'s':'')+' sin costo: no entran en el cálculo.</small>' : '')+
       '<small>Solo tú lo ves. No sale en el PDF ni en WhatsApp.</small>';
   }
   window.mgPintar=mgPintar;
