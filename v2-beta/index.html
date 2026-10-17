@@ -2995,6 +2995,8 @@ document.getElementById('excelBtn').onclick = window.exportarExcel;
     if(!localStorage.getItem('ricchary_v2_novedades_visto')){
       ob.classList.add('show');
     }
+    // Quien ya vio la guía antes: se le muestra UNA vez, directo en "Herramientas nuevas"
+    var _irNovedades = !!localStorage.getItem('ricchary_v2_novedades_visto') && !localStorage.getItem('ricchary_v2_novedades2_visto');
     let actual = 0;
     const slides = ob.querySelectorAll('.onb-slide');
     const dots = ob.querySelectorAll('.onb-dot');
@@ -3017,9 +3019,11 @@ document.getElementById('excelBtn').onclick = window.exportarExcel;
       ob.classList.remove('show');
       localStorage.setItem('onboarding_visto','1');
       localStorage.setItem('ricchary_v2_novedades_visto','1');
+      localStorage.setItem('ricchary_v2_novedades2_visto','1');
     }
 
     btnNext.onclick = ()=>{ if(actual < total-1) mostrar(actual+1); else cerrar(); };
+    if(_irNovedades){ mostrar(2); ob.classList.add('show'); }
     btnSkip.onclick = cerrar;
 
     const proBtn = document.getElementById('onbProBtn');
