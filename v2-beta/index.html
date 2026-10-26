@@ -1323,8 +1323,7 @@ body.pidiendo-impuesto .claim-sep{margin:6px auto}
   <div class="section-title">Observaciones y Condiciones</div>
   <div class="footer-notes">
     <div style="font-size:13px;font-weight:600;margin-bottom:6px">🚚 Tiempo de entrega: <input id="fDiasEntrega" type="number" min="1" max="365" value="30" style="width:55px;text-align:center;font-weight:700;padding:2px 4px;border:0.5px solid var(--border);border-radius:4px"> días laborables</div>
-    <textarea id="fNotas" style="height: 103px;">Abono 50% al confirmar el pedido. El plazo de entrega corre a partir de la confirmación del pedido y aprobación del diseño.
-Este documento es de carácter contrato cliente-ofertador, que firmado constituye un documento de COMPROMISO.</textarea>
+    <textarea id="fNotas" style="height: 103px;" placeholder="Observaciones de esta cotización (opcional). Si agregas chaquetas, las condiciones se ponen solas."></textarea>
   </div>
 
   <div style="margin-top:1.5rem">
@@ -1839,24 +1838,28 @@ var COND_CHAQUETAS = COND_DEFAULT + '\n\n'
   + 'Devoluciones por parte nuestra: el plazo de devolución es de 8 días hábiles. Si el cliente decide declinar el pedido ya confirmado, la devolución se realiza en 15 días hábiles, ya que el material fue adquirido con anticipación.\n\n'
   + 'Los reclamos se reciben hasta 10 días después de la entrega; pasado ese plazo no son negociables.\n\n'
   + 'La talla es responsabilidad exclusiva del cliente, pues la producción se guía por el listado de tallas proporcionado por él mismo.';
+/* Condiciones SOLO para chaquetas (oct-2026):
+   - Cotización normal: observaciones vacías; lo que escribas queda en ESA cotización.
+   - Si hay una chaqueta, se AGREGAN las condiciones de chaquetas debajo de lo que escribiste.
+   - Si quitas la chaqueta, se retira ese bloque (si no lo modificaste). Nunca se borra tu texto.
+   - Al abrir una cotización guardada no se toca nada. */
 function condicionesAuto(){
+  if(window._cargandoCot) return;
   var n = document.getElementById('fNotas'); if(!n) return;
   var actual = n.value;
-  var base = localStorage.getItem('cfg_condiciones') || COND_DEFAULT;
   var hayChaqueta = Array.prototype.some.call(document.querySelectorAll('#itemsBody .item-row input[type="text"]'),
     function(i){ return /chaqueta/i.test(i.value||''); });
-  if(hayChaqueta && actual===base) n.value = COND_CHAQUETAS;
-  else if(!hayChaqueta && actual===COND_CHAQUETAS) n.value = base;
-  // Cambio por detección automática, no por el usuario: no se guarda como nueva condición por defecto.
+  var tiene = actual.indexOf(COND_CHAQUETAS) > -1;
+  if(hayChaqueta && !tiene){
+    n.value = actual.trim() ? actual.replace(/\s+$/,'') + '\n\n' + COND_CHAQUETAS : COND_CHAQUETAS;
+  }else if(!hayChaqueta && tiene){
+    n.value = actual.replace(COND_CHAQUETAS,'').replace(/\s+$/,'');
+  }
 }
 window.addEventListener('load', ()=>{
-  const n = document.getElementById('fNotas');
   const dd = document.getElementById('fDiasEntrega');
-  const savedN = localStorage.getItem('cfg_condiciones');
-  if(n && savedN) n.value = savedN;
   if(dd) dd.value = '30'; // valor por defecto en cotización nueva
-  if(n) n.addEventListener('input', ()=>localStorage.setItem('cfg_condiciones', n.value));
-  // (los días de entrega ya NO se guardan global; van por cada cotización)
+  try{ localStorage.removeItem('cfg_condiciones'); }catch(e){}   // ya no hay texto por defecto global
 });
 
 // ===== ESTADOS DEL PEDIDO (RICCHARY) =====
@@ -2033,6 +2036,7 @@ function showHistSaveBadge(){
 // Carga una cotización del historial al formulario
 function cargarCotizacion(cot){
   window._editandoExistente = true;
+  window._cargandoCot = true; setTimeout(function(){ window._cargandoCot = false; }, 0);
   const _dO=document.getElementById('docOrden'); if(_dO) _dO.value = cot.num||'';
   if(window.marcarBotonFacturado) setTimeout(window.marcarBotonFacturado, 50);
   document.getElementById('fFecha').value = cot.fecha||'';
@@ -2046,7 +2050,7 @@ function cargarCotizacion(cot){
   document.getElementById('fMail').value = cot.mail||'';
   document.getElementById('fAtencion').value = cot.atencion||'';
   // Notas: restaurar de local siempre; de la nube solo si trae contenido (no pisa las condiciones por defecto)
-  if(cot.notas!==undefined && (!cot._cloud || cot.notas)) document.getElementById('fNotas').value = cot.notas||'';
+  document.getElementById('fNotas').value = cot.notas||'';   // cada cotización trae sus propias observaciones
   document.getElementById('ivaSel').value = cot.iva||'0';
   const _dE=document.getElementById('fDiasEntrega'); if(_dE) _dE.value = cot.diasEntrega||'30';
   // Limpiar e insertar ítems
@@ -3168,7 +3172,7 @@ window.nuevaCotizacion = function(){
                 || (document.getElementById('itemsBody')?.children.length||0) > 0;
   if(hayDatos && !confirm('¿Empezar una cotización nueva?\n\nSe limpiará el formulario. Asegúrate de haber guardado la actual.')) return;
 
-  ['fCliente','fEmpresa','fTelefono','fDireccion','fCedula','fMail','fAtencion','fAbono']
+  ['fCliente','fEmpresa','fTelefono','fDireccion','fCedula','fMail','fAtencion','fAbono','fNotas']
     .forEach(id=>{ const e=document.getElementById(id); if(e) e.value=''; });
 
   const st=document.getElementById('rucStatus'); if(st) st.style.display='none';
