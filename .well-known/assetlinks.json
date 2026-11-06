@@ -11,5 +11,17 @@
         "CB:83:F0:E1:1F:B4:52:B3:F2:A6:4A:CD:6F:29:6E:BF:42:D8:13:56:CD:3F:BC:9E:5C:FF:8F:67:FD:D8:D1:96"
       ]
     }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.ricchary.flash",
+      "sha256_cert_fingerprints": [
+        "7C:AA:A3:B4:59:89:E8:3A:1A:1A:F2:39:F8:83:CE:92:30:3D:6F:CF:D0:17:DD:EF:DA:75:05:1D:70:BC:2D:B5"
+      ]
+    }
   }
 ]
