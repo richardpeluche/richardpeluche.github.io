@@ -41,6 +41,12 @@ a{color:inherit}
 .brand b{font-weight:700;letter-spacing:.02em}
 .brand span{color:#a1a1a6;font-weight:500;font-size:14px}
 @media (max-width:760px){.brand span{display:none}}
+.brand-wrap{display:flex;align-items:center;gap:14px;min-width:0}
+.cat-pill{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:#f5f5f7;text-decoration:none;border:1px solid rgba(255,255,255,.28);border-radius:980px;padding:6px 12px;white-space:nowrap;transition:background .2s,border-color .2s}
+.cat-pill:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.5)}
+.cat-pill .corto{display:none}
+#conocenos{scroll-margin-top:56px}
+@media (max-width:520px){.cat-pill .largo{display:none}.cat-pill .corto{display:inline}.brand-wrap{gap:10px}}
 .nav-links{display:flex;gap:26px;font-size:13px;color:#a1a1a6}
 .nav-links a{text-decoration:none}.nav-links a:hover{color:#fff}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:inherit;font-weight:600;border:0;border-radius:980px;cursor:pointer;text-decoration:none;transition:background .2s,transform .2s}
@@ -211,7 +217,10 @@ footer a{text-decoration:none}footer a:hover{text-decoration:underline}
 
 <header class="nav">
   <div class="nav-in">
-    <a class="brand" href="#top"><img src="logo-ricchary.png" alt="" width="40" height="32"><b>RICCHARY</b><span>Sistema de gestión comercial</span></a>
+    <div class="brand-wrap">
+      <a class="brand" href="#top"><img src="logo-ricchary.png" alt="" width="40" height="32"><b>RICCHARY</b><span>Sistema de gestión comercial</span></a>
+      <a class="cat-pill" href="#conocenos"><span class="largo">Catálogo de productos</span><span class="corto">Catálogo</span></a>
+    </div>
     <nav class="nav-links" aria-label="Principal">
       <a href="#funciones">Funciones</a>
       <a href="#cobro">Cobros</a>
