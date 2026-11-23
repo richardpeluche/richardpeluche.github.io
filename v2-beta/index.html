@@ -1479,6 +1479,11 @@ body.pidiendo-impuesto .claim-sep{margin:6px auto}
     <div class="cfg-group">
     </div>
     <div class="cfg-group">
+      <label>💬 Frase final del mensaje de WhatsApp</label>
+      <input type="text" id="cfgCierre" maxlength="160" placeholder="Cualquier consulta estamos a su disposición. 🙌">
+      <small style="display:block;color:var(--muted);font-size:11px;margin-top:3px">Va al final de cada proforma que envías por WhatsApp, justo antes del link. Vacío = frase por defecto.</small>
+    </div>
+    <div class="cfg-group">
       <label>🔗 Link de contacto (WhatsApp)</label>
       <input type="text" id="cfgLink" placeholder="Ej: https://linktr.ee/tuempresa">
       <small style="display:block;color:var(--muted);font-size:11px;margin-top:3px">Opcional. Vacío = sin link en mensajes.</small>
@@ -2361,6 +2366,7 @@ function loadConfig(){
   if(rep)document.getElementById('cfgRepresentante').value=rep;
   const lk=localStorage.getItem('cfg_link')||'';
   const cfgLk=document.getElementById('cfgLink');if(cfgLk&&lk)cfgLk.value=lk;
+  const ci=localStorage.getItem('cfg_cierre')||''; const cfgCi=document.getElementById('cfgCierre'); if(cfgCi&&ci) cfgCi.value=ci;
   const su=localStorage.getItem('cfg_sync_url')||'';
   const cfgSu=document.getElementById('cfgSyncUrl');if(cfgSu&&su)cfgSu.value=su;
   const iaU=localStorage.getItem('cfg_ia_url')||'';
@@ -2566,6 +2572,7 @@ cfgSave.onclick=()=>{
   localStorage.setItem('cfg_representante',rep);
   const lk2=document.getElementById('cfgLink')?.value.trim()||'';
   localStorage.setItem('cfg_link',lk2);
+  localStorage.setItem('cfg_cierre',(document.getElementById('cfgCierre')?.value||'').trim());
   const su=document.getElementById('cfgSyncUrl')?.value.trim()||'';
   localStorage.setItem('cfg_sync_url',su);
   // Si el usuario guarda la URL del dueño, marcar este dispositivo como dueño
@@ -2745,7 +2752,7 @@ document.getElementById('waBtn').onclick=()=>{
     + `📦 *Detalle:*\n${itemsTxt}\n\n`
     + `💰 *TOTAL: ${cot.total}*${abonoTxt}${entregaTxt}\n`
     + `${'─'.repeat(22)}\n`
-    + `Cualquier consulta estamos a su disposición. 🙌\n`
+    + `${(localStorage.getItem('cfg_cierre')||'').trim() || 'Cualquier consulta estamos a su disposición. 🙌'}\n`
     + (brandLink ? `\n🌐 ${brandLink}` : ``);
 
   // Normalizar teléfono Ecuador: 09XXXXXXXX -> 5939XXXXXXXX
